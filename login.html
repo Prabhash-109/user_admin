@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Crusher - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+#app {
+    width: 90%;
+    max-width: 600px;
+    margin: auto;
+}
+
+.section {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #444;
+    border-radius: 10px;
+    background-color: #2c2c2c;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.hidden {
+    display: none;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+}
+</style>
+<body>
+    <div id="app">
+        <!-- Starting Page -->
+        <div id="startPage" class="section">
+            <img src="data:image/png;base64,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">
+            <h2>Welcome to Code-Crusher</h2>
+            <p>Please select your role to proceed:</p>
+            <button id="chooseAdmin">Admin</button>
+            <button id="chooseEmployee">Employee</button>
+        </div>
+
+        <!-- Login Section for Admin -->
+        <div id="adminLogin" class="section hidden">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFxZsweY6CFfgCrzzmF5HloqcDBGeTf4-zUA&s" alt="TechCorp Logo" class="logo">
+            <h2>Admin Login</h2>
+            <form id="adminLoginForm">
+                <label for="adminUsername">Username:</label>
+                <input type="text" id="adminUsername" required>
+                <label for="adminPassword">Password:</label>
+                <input type="password" id="adminPassword" required>
+                <button type="submit">Login</button>
+            </form>
+            <p id="adminLoginError" class="error-message"></p>
+        </div>
+
+        <!-- Login Section for Employee -->
+        <div id="employeeLogin" class="section hidden">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFxZsweY6CFfgCrzzmF5HloqcDBGeTf4-zUA&s" alt="TechCorp Logo" class="logo">
+            <h2>Employee Login</h2>
+            <form id="employeeLoginForm">
+                <label for="employeeUsername">Username:</label>
+                <input type="text" id="employeeUsername" required>
+                <label for="employeePassword">Password:</label>
+                <input type="password" id="employeePassword" required>
+                <button type="submit">Login</button>
+            </form>
+            <p id="employeeLoginError" class="error-message"></p>
+        </div>
+    </div>
+
+   
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const startPage = document.getElementById('startPage');
+            const adminLogin = document.getElementById('adminLogin');
+            const employeeLogin = document.getElementById('employeeLogin');
+            const adminLoginForm = document.getElementById('adminLoginForm');
+            const employeeLoginForm = document.getElementById('employeeLoginForm');
+
+            const users = {
+                admin: { username: 'admin', password: 'admin', role: 'admin' },
+                employee: { username: 'employee', password: 'employee', role: 'employee' }
+            };
+
+            // Handle role selection
+            document.getElementById('chooseAdmin').addEventListener('click', () => {
+                startPage.classList.add('hidden');
+                adminLogin.classList.remove('hidden');
+            });
+
+            document.getElementById('chooseEmployee').addEventListener('click', () => {
+                startPage.classList.add('hidden');
+                employeeLogin.classList.remove('hidden');
+            });
+
+            // Admin login validation
+            adminLoginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const username = document.getElementById('adminUsername').value;
+                const password = document.getElementById('adminPassword').value;
+                const adminLoginError = document.getElementById('adminLoginError');
+                adminLoginError.textContent = '';
+
+                if (username === users.admin.username && password === users.admin.password) {
+                    // Navigate to index.html upon successful login
+                    window.location.href = 'Prateek.html';
+                } else {
+                    adminLoginError.textContent = 'Invalid admin credentials';
+                }
+            });
+
+            // Employee login validation
+            employeeLoginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const username = document.getElementById('employeeUsername').value;
+                const password = document.getElementById('employeePassword').value;
+                const employeeLoginError = document.getElementById('employeeLoginError');
+                employeeLoginError.textContent = '';
+
+                if (username === users.employee.username && password === users.employee.password) {
+                    // Navigate to index.html upon successful login
+                    window.location.href = 'index (1).html';
+                } else {
+                    employeeLoginError.textContent = 'Invalid employee credentials';
+                }
+            });
+        });
+    </script>
+    </script>
+</body>
+</html>
